@@ -1,38 +1,165 @@
-/* 
-    Document   : style
-    Created on : Mar 22, 2010, 5:18:22 PM
-    Author     : hantsy
-    Description:
-        Purpose of the stylesheet follows.
-*/
+@import "js/dojo/resources/dojo.css";
+@import "js/dijit/themes/soria/soria.css";
+@import "js/dojox/grid/resources/Grid.css";
+@import "js/dojox/grid/resources/soriaGrid.css";
 
-/* 
-   TODO customize this sample style
-   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
-*/
-
-body {
-    font-family: Arial;
+html, body, #main {
+    width: 100%; /* make the body expand to fill the visible window */
+    height: 100%;
+    overflow: hidden; /* erase window level scrollbars */
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+    font: 10pt Arial, Myriad, Tahoma, Verdana, sans-serif;
 }
 
-#header {
-    background-color: navy;
+fieldset ol {
+    padding: 1em 0 0 1em;
+    list-style: none;
 }
 
-#title {
-    color: white;
-    font-size: 18px;
-    font-weight: bolder;
+fieldset legend {
+    line-height: 2;
 }
 
-#container {
-    padding-top: 1em;
-    padding-left: 1.5em;
-    position: relative;
-    z-index: 0;
+#banner, #footer {
+    background-color: #ededff;
+    color: #333;
+    padding: 3px;
 }
 
-h3.title {
-    margin-top: 0em;
-    margin-bottom: 1em;
+#grid, #grid2 {
+    width: 65em;
+    height: 25em;
+    padding: 1px;
+}
+
+#banner {
+    text-align: right;
+}
+
+body .dojoSplitPane {
+    background: #ededff;
+    overflow: auto;
+}
+
+#preLoader {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #fff url( '../js/dojox/image/resources/images/loading.gif' ) no-repeat center center;
+    z-index: 999;
+}
+
+#preLoader p {
+    color: #ededed;
+    font: 72pt Arial, san-serif;
+    font-weight: bold;
+}
+
+.IconMain, .IconArticle, .IconUsers, .IconManageCoders, .IconDataManagement, .IconExportData,
+    .IconPrint, .IconMedia, .IconProject, .IconNewProject, .IconHelp, .IconExit,
+    .IconKeyMessages, .IconModuleAttributes, .IconLabelAdministration,
+    .IconCodingOverview, IconNewsletters {
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 16px;
+    text-align: center;
+}
+
+.IconMain {
+    background-image: url( '../icons/menu.png' );
+}
+
+.IconArticle {
+    background-image: url( '../icons/article.png' );
+}
+
+.IconUsers {
+    background-image: url( '../icons/users.png' );
+}
+
+.IconManageCoders {
+    background-image: url( '../icons/managecoders.png' );
+}
+
+.IconDataManagement {
+    background-image: url( '../icons/datamanagement.png' );
+}
+
+.IconExportData {
+    background-image: url( '../icons/exportdata.png' );
+}
+
+.IconPrint {
+    background-image: url( '../icons/print.png' );
+}
+
+.IconMedia {
+    background-image: url( '../icons/media.png' );
+}
+
+.IconProject {
+    background-image: url( '../icons/project.png' );
+}
+
+.IconNewProject {
+    background-image: url( '../icons/newproject.png' );
+}
+
+.IconNewsletters {
+    background-image: url( '../icons/newsletters.png' );
+}
+
+.IconHelp {
+    background-image: url( '../icons/help.png' );
+}
+
+.IconExit {
+    background-image: url( '../icons/exit.png' );
+}
+
+.IconKeyMessages {
+    background-image: url( '../icons/key_messages.png' );
+}
+
+.IconModuleAttributes {
+    background-image: url( '../icons/module_attributes.png' );
+}
+
+.IconLabelAdministration {
+    background-image: url( '../icons/label_administration.png' );
+}
+
+.IconCodingOverview {
+    background-image: url( '../icons/coding_overview.png' );
+}
+
+.IconCancel, .IconOptions, .IconOk {
+    background-image: url( '../icons/icons.png' ); /* icons sprite image */
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    padding-right: 4px;
+}
+
+.IconCancel {
+    background-position: 0;
+}
+
+.IconOptions {
+    background-position: -22px;
+}
+
+.IconOk {
+    background-position: -176px;
+}
+
+.IconDelete {
+    background-image: url( '../icons/delete.png' );
+    background-position: -176px;
 }
