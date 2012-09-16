@@ -37,7 +37,7 @@ public List<Information> list() throws ModelException
     }
 
 
-  public Information lookUpCategory( String name ) throws ModelException{
+  public Information lookUpInformation( String name ) throws ModelException{
 
       if ( name == null || name.length() == 0 )
           throw new IllegalArgumentException("Invalid information name");

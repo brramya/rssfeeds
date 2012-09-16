@@ -5,6 +5,7 @@
 
 package edu.stratford.rbandlar8760.rssfeeds.model;
 
+import edu.stratford.rbandlar8760.rssfeeds.db.Information;
 import edu.stratford.rbandlar8760.rssfeeds.db.TagDetails;
 import edu.stratford.rbandlar8760.rssfeeds.db.Website;
 import java.util.HashMap;
@@ -46,21 +47,28 @@ public class TagDetailsModel extends BaseModel{
 
 
 
-  public TagDetails create( Website w, String tag ) throws ModelException{
+  public TagDetails create( Website w, Information i , String tag ) throws ModelException{
 
       if ( tag == null || tag.length() == 0 )
           throw new IllegalArgumentException("Invalid tag name");
 
       if ( w == null )
           throw new IllegalArgumentException("Invalid website");
+
+      if ( i == null )
+          throw new IllegalArgumentException("Invalid information");
+      
       try{
           final TagDetails td = dataContext.newObject(TagDetails.class);
             td.setToWebsite(w);
             td.setTagname(tag);
+            td.setToInformation(i);
+            
           dataContext.commitChanges();
           return td;
       }catch (CayenneRuntimeException ce)
       {
+          ce.printStackTrace();
           dataContext.rollbackChanges();
           throw new ModelException("Could not add Tag Details");
       }

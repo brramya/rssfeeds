@@ -16,7 +16,6 @@ public abstract class _Category extends CayenneDataObject {
 
     public static final String CATEGORY_NAME_PROPERTY = "categoryName";
     public static final String MAPPING_DETAILS_ARRAY_PROPERTY = "mappingDetailsArray";
-    public static final String MAPPING_DETAILS_ARRAY1_PROPERTY = "mappingDetailsArray1";
 
     public static final String S_NO_PK_COLUMN = "s_no";
 
@@ -36,18 +35,6 @@ public abstract class _Category extends CayenneDataObject {
     @SuppressWarnings("unchecked")
     public List<MappingDetails> getMappingDetailsArray() {
         return (List<MappingDetails>)readProperty("mappingDetailsArray");
-    }
-
-
-    public void addToMappingDetailsArray1(MappingDetails obj) {
-        addToManyTarget("mappingDetailsArray1", obj, true);
-    }
-    public void removeFromMappingDetailsArray1(MappingDetails obj) {
-        removeToManyTarget("mappingDetailsArray1", obj, true);
-    }
-    @SuppressWarnings("unchecked")
-    public List<MappingDetails> getMappingDetailsArray1() {
-        return (List<MappingDetails>)readProperty("mappingDetailsArray1");
     }
 
 

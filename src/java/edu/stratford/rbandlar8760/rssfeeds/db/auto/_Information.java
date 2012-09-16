@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.cayenne.CayenneDataObject;
 
-import edu.stratford.rbandlar8760.rssfeeds.db.ProductDetails;
 import edu.stratford.rbandlar8760.rssfeeds.db.TagDetails;
 
 /**
@@ -16,7 +15,6 @@ import edu.stratford.rbandlar8760.rssfeeds.db.TagDetails;
 public abstract class _Information extends CayenneDataObject {
 
     public static final String INFORMATION_PROPERTY = "information";
-    public static final String PRODUCT_DETAILS_ARRAY_PROPERTY = "productDetailsArray";
     public static final String TAG_DETAILS_ARRAY_PROPERTY = "tagDetailsArray";
 
     public static final String INF_PK_PK_COLUMN = "inf_pk";
@@ -27,18 +25,6 @@ public abstract class _Information extends CayenneDataObject {
     public String getInformation() {
         return (String)readProperty("information");
     }
-
-    public void addToProductDetailsArray(ProductDetails obj) {
-        addToManyTarget("productDetailsArray", obj, true);
-    }
-    public void removeFromProductDetailsArray(ProductDetails obj) {
-        removeToManyTarget("productDetailsArray", obj, true);
-    }
-    @SuppressWarnings("unchecked")
-    public List<ProductDetails> getProductDetailsArray() {
-        return (List<ProductDetails>)readProperty("productDetailsArray");
-    }
-
 
     public void addToTagDetailsArray(TagDetails obj) {
         addToManyTarget("tagDetailsArray", obj, true);

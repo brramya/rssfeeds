@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.cayenne.CayenneDataObject;
 
+import edu.stratford.rbandlar8760.rssfeeds.db.MappingDetails;
 import edu.stratford.rbandlar8760.rssfeeds.db.TagDetails;
 import edu.stratford.rbandlar8760.rssfeeds.db.WebsiteUrl;
 
@@ -16,6 +17,7 @@ import edu.stratford.rbandlar8760.rssfeeds.db.WebsiteUrl;
 public abstract class _Website extends CayenneDataObject {
 
     public static final String WEBSITE_NAME_PROPERTY = "websiteName";
+    public static final String MAPPING_DETAILS_ARRAY_PROPERTY = "mappingDetailsArray";
     public static final String TAG_DETAILS_ARRAY_PROPERTY = "tagDetailsArray";
     public static final String WEBSITE_URL_ARRAY_PROPERTY = "websiteUrlArray";
 
@@ -27,6 +29,18 @@ public abstract class _Website extends CayenneDataObject {
     public String getWebsiteName() {
         return (String)readProperty("websiteName");
     }
+
+    public void addToMappingDetailsArray(MappingDetails obj) {
+        addToManyTarget("mappingDetailsArray", obj, true);
+    }
+    public void removeFromMappingDetailsArray(MappingDetails obj) {
+        removeToManyTarget("mappingDetailsArray", obj, true);
+    }
+    @SuppressWarnings("unchecked")
+    public List<MappingDetails> getMappingDetailsArray() {
+        return (List<MappingDetails>)readProperty("mappingDetailsArray");
+    }
+
 
     public void addToTagDetailsArray(TagDetails obj) {
         addToManyTarget("tagDetailsArray", obj, true);

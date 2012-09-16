@@ -37,7 +37,7 @@ public List<Website> list() throws ModelException
     }
 
 
-  public Website lookUpCategory( String name ) throws ModelException{
+  public Website lookUpWebsite( String name ) throws ModelException{
 
       if ( name == null || name.length() == 0 )
           throw new IllegalArgumentException("Invalid Website name");
@@ -52,7 +52,9 @@ public List<Website> list() throws ModelException
             final SelectQuery query = new SelectQuery( Website.class, qualifier );
             @SuppressWarnings("unchecked")
             final List<Website> webSite = dataContext.performQuery( query );
-            return webSite.get( 0 );
+            if(!webSite.isEmpty())
+                return webSite.get( 0 );
+            return null;
         }
         catch (CayenneRuntimeException ce)
         {
@@ -69,12 +71,31 @@ public List<Website> list() throws ModelException
       try{
           final Website ca = dataContext.newObject(Website.class);
           ca.setWebsiteName(name);
+          
           dataContext.commitChanges();
           return ca;
-      }catch (CayenneRuntimeException ce)
+      }catch (Exception ce)
       {
+          ce.printStackTrace();
           dataContext.rollbackChanges();
           throw new ModelException("Could not add Website");
       }
+  }
+
+  public Website checkAndCreate( String name ) throws ModelException{
+
+      if ( name == null || name.length() == 0 )
+          throw new IllegalArgumentException("Invalid Website name");
+          try{
+            Website w = lookUpWebsite(name);
+            System.out.println("Website:"+w+":");
+            if( w == null ){
+                Website web = create( name );
+                return web;
+            }
+            return w;
+          }catch(ModelException me ){
+            throw new ModelException(me.getMessage());
+          }
   }
 }

@@ -1,8 +1,9 @@
 package edu.stratford.rbandlar8760.rssfeeds.db.auto;
 
+import java.util.Date;
+
 import org.apache.cayenne.CayenneDataObject;
 
-import edu.stratford.rbandlar8760.rssfeeds.db.Information;
 import edu.stratford.rbandlar8760.rssfeeds.db.MappingDetails;
 
 /**
@@ -13,26 +14,41 @@ import edu.stratford.rbandlar8760.rssfeeds.db.MappingDetails;
  */
 public abstract class _ProductDetails extends CayenneDataObject {
 
-    public static final String VALUE_PROPERTY = "value";
-    public static final String TO_INFORMATION_PROPERTY = "toInformation";
+    public static final String DATE_PROPERTY = "date";
+    public static final String DESCRIPTION_PROPERTY = "description";
+    public static final String LINK_PROPERTY = "link";
+    public static final String TITLE_PROPERTY = "title";
     public static final String TO_MAPPING_DETAILS_PROPERTY = "toMappingDetails";
 
+    public static final String PRODUCT_DETAILS_ID_PK_COLUMN = "product_details_id";
 
-    public void setValue(String value) {
-        writeProperty("value", value);
+    public void setDate(Date date) {
+        writeProperty("date", date);
     }
-    public String getValue() {
-        return (String)readProperty("value");
-    }
-
-    public void setToInformation(Information toInformation) {
-        setToOneTarget("toInformation", toInformation, true);
+    public Date getDate() {
+        return (Date)readProperty("date");
     }
 
-    public Information getToInformation() {
-        return (Information)readProperty("toInformation");
+    public void setDescription(String description) {
+        writeProperty("description", description);
+    }
+    public String getDescription() {
+        return (String)readProperty("description");
     }
 
+    public void setLink(String link) {
+        writeProperty("link", link);
+    }
+    public String getLink() {
+        return (String)readProperty("link");
+    }
+
+    public void setTitle(String title) {
+        writeProperty("title", title);
+    }
+    public String getTitle() {
+        return (String)readProperty("title");
+    }
 
     public void setToMappingDetails(MappingDetails toMappingDetails) {
         setToOneTarget("toMappingDetails", toMappingDetails, true);

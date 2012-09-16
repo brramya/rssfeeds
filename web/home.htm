@@ -3,14 +3,28 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 
     <head>
-
+    <meta name="description" content="Free Web tutorials" />
+    <meta name="keywords" content="HTML,CSS,XML,JavaScript" />
+    <meta name="author" content="Hege Refsnes" />
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>RSS Feeds</title>
+                  
         <script type="text/javascript" src="js/dojo/dojo.js" djConfig="parseOnLoad: true"></script>
         <script type="text/javascript">
-
             dojo.require("dijit.form.Button");
             dojo.require("dojox.grid.DataGrid");
-
-
+            dojo.require("dijit.dijit");
+            dojo.require("dojox.layout.TableContainer");
+            dojo.require("dijit.form.TextBox");
+            dojo.require("dijit.Dialog");
+            dojo.require("dojox.form.DropDownSelect");
+        	function dialogAlert(txtTitle, txtContent)
+		{
+			var thisdialog = new dijit.Dialog({ title: txtTitle, content: txtContent });
+			dojo.body().appendChild(thisdialog.domNode);
+			thisdialog.startup();
+			thisdialog.show();
+		}
         </script>
 
         <style type="text/css">
@@ -18,40 +32,109 @@
             @import "js/dijit/themes/soria/soria.css";
             @import "js/dojox/grid/resources/Grid.css";
             @import "js/dojox/grid/resources/soriaGrid.css";
-
         </style>
-
 
     </head>
 
-    <body class="soria">
+<body class="soria">
+    
+<div data-dojo-type="dijit/Dialog" data-dojo-id="myDialog" title="RSS Fields Maping to Database">
+    <table class="dijitDialogPaneContentArea">
+        <tr>
+            <td><label for="title">Title:</label></td>
+            <td><input data-dojo-type="dijit/form/TextBox" name="title" id="title" /></td>
+        </tr>
+        <tr>
+            <td><label for="guid">Guid:</label></td>
+            <td><input data-dojo-type="dijit/form/TextBox" name="guid" id="guid" /></td>
+        </tr
+        <tr>
+            <td><label for="link">Link:</label></td>
+            <td><input data-dojo-type="dijit/form/TextBox" name="link" id="link" /></td>
+        </tr>
+        <tr>
+            <td><label for="publicationDate">Publication Date:</label></td>
+            <td><input data-dojo-type="dijit/form/TextBox" name="publicationDate" id="publicationDate" /></td>
+        </tr>
+        <tr>
+            <td><label for="description">Description:</label></td>
+            <td><input data-dojo-type="dijit/form/TextBox" name="description" id="description" /></td>
+        </tr>
+    </table>
 
-        <button dojoType="dijit.form.Button" id="buttonTest">
-
-	Clicky
-
+    <div class="dijitDialogPaneActionBar">
+        <button dojoType="dijit.form.Button" type="submit" id="ok">
+        OK
             <script type="dojo/method" event="onClick">
+                var rssFeedURL = dojo.byId("rssFeed");
+                var rssSiteInfo = dojo.byId("rssSite");
+                var title = dojo.byId("title");
+                var guid = dojo.byId("guid");
+                var link = dojo.byId("link");
+                var publicationDate = dojo.byId("publicationDate");
+                var description = dojo.byId("description");
 
-                alert('Clicky-click! You clicked and now you see this box');
+                var data = {
+                        url: rssFeedURL.value,
+                        website: rssSiteInfo.value,
+                        title: title.value,
+                        guid: guid.value,
+                        link: link.value,
+                        pubDate: publicationDate.value,
+                        description: description.value,
+                        type: 'addRssfeedUrl'
+                    };
+                    dojo.xhrPost({
+                                    url: 'jsonInformation.htm',
+                                    handleAs: 'json',
+                                    timeout: 7000,
+                                    content: {json: dojo.toJson(data)},
 
-            </script>
+                                    //Load function called on successful response
+                                    load: function(response, ioArgs) {
+                                        
+                                            dialogAlert("Title", "Added Url Successfully");
+                                        
+                                    },
+                                    error: function(response, ioArgs) {
+                                         dialogAlert("Title", "Cannot add URL");
+                                    }
+                                });
+                </script>
+            </button>
 
-        </button>
+            <button dojoType="dijit.form.Button" type="button" onClick="myDialog.onCancel();"
+                    id="cancel">Cancel
+            </button>
+        </div>
+    </div>
+    
 
-        <table data-dojo-type="dojox.grid.DataGrid" >
-  <thead>
-    <tr>
-      <th field="fieldName" width="200px">Column Name</th>
-      <th field="fieldName" width="200px">Column Name</th>
-    </tr>
-  </thead>
-</table>
-
-
-
-    </body>
-
+      <table width="100%">
+          <tr>
+              <td colspan="2" align="center">
+                  <label><h1>RSS Feed Details</h1><br/></label>
+              </td>
+          </tr>
+        <tr>
+            <td width="50%" align="right" style="font-size: 16px;"><label for="title">RSS Feed URL:</label></td>
+            <td width="50%" align="left">                
+                <input id="rssFeed" data-dojo-type="dijit/form/TextBox" size="80" name="rssFeed" />
+            </td>
+        </tr>
+        <tr>
+            <td width="50%" align="right" style="font-size: 16px;"><label for="guid">RSS Site:</label></td>
+            <td width="50%" align="left"><input data-dojo-type="dijit/form/TextBox" name="rssSite" size="80" id="rssSite"/></td>
+        </tr
+        <tr>
+            <td></td>
+            <td align="left">
+                <br/>
+                <button data-dojo-type="dijit/form/Button" type="button" onClick="myDialog.show();">
+                    Submit!
+                </button>
+            </td>
+        </tr>
+      </table>
+</body>
 </html>
-
-
-

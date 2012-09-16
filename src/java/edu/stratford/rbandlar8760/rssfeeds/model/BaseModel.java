@@ -24,7 +24,7 @@ public class BaseModel {
         }
         catch (Exception e)
         {
-
+            System.out.println("Creating new context");
             dataContext = DataContext.createDataContext(); // for junit testing
         }
     }
