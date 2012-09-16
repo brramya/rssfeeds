@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+    <head>
+        <meta name="description" content="Free Web tutorials" />
+        <meta name="keywords" content="HTML,CSS,XML,JavaScript" />
+        <meta name="author" content="Hege Refsnes" />
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+        <title>RSS Feed Product Search</title>
+
+        <script type="text/javascript" src="js/dojo/dojo.js" djConfig="parseOnLoad: true"></script>
+        <script type="text/javascript">
+            dojo.require("dijit.form.Button");
+            dojo.require("dojox.grid.EnhancedGrid");
+            dojo.require("dijit.dijit");
+            dojo.require("dojox.layout.TableContainer");
+            dojo.require("dijit.form.TextBox");
+            dojo.require("dijit.Dialog");
+            dojo.require("dojox.form.DropDownSelect");
+            
+            dojo.require("dojo.domReady");
+            dojo.require("dojo.dom");
+            dojo.require("dojo._base.lang");
+
+            function dialogAlert(txtTitle, txtContent)
+
+            {
+
+                var thisdialog = new dijit.Dialog({ title: txtTitle, content: txtContent });
+
+                dojo.body().appendChild(thisdialog.domNode);
+
+                thisdialog.startup();
+
+                thisdialog.show();
+
+            }
+
+            function lessThan(str) {
+                if (str != null)
+                    return str.replace(/&lt;/gi, "<");
+            }
+
+               
+                
+        </script>
+
+        <style type="text/css">
+            @import "js/dojo/resources/dojo.css";
+            @import "js/dijit/themes/soria/soria.css";
+            @import "js/dojox/grid/resources/Grid.css";
+            @import "js/dojox/grid/resources/soriaGrid.css";
+            @import "js/dojox/form/resources/DropDownSelect.css";
+            #grid {
+                height: 20em;
+            }
+        </style>
+        <div dojoType="dojo/data/ItemFileReadStore" jsId="categoryStore" url="jsonCategory.htm"></div>
+    </head>
+
+    <body class="soria">
+        <table width="100%">
+            <tr>
+                <td colspan="2" align="center">
+                    <label><h1>Product Search</h1><br/></label>
+                </td>
+            </tr>
+            <tr>
+                <td width="50%" align="right" style="font-size: 16px;"><label for="title">Product Category:</label></td>
+                <td width="50%" align="left">
+                    <select name="select" store="categoryStore" jsId="category" id="category" searchAttr="cat_name" data-dojo-type="dijit/form/FilteringSelect"></select>
+                </td>
+            </tr>
+            <tr>
+                <td width="50%" align="right" style="font-size: 16px;"><label for="guid">Product Company:</label></td>
+                <td width="50%" align="left"><input data-dojo-type="dijit/form/TextBox" name="rssSite" size="80" jsId="searchStr" id="searchStr"/></td>
+            </tr
+            <tr>
+                <td></td>
+                <td align="left">
+                    <br/>
+                    <button data-dojo-type="dijit/form/Button" type="button">
+						Search
+                        <script type="dojo/method" event="onClick">
+
+
+                            var store = new dojo.data.ItemFileReadStore({url: "jsonSearch.htm?type=searchFromUI&searchStr="+dojo.byId("searchStr").value+"&cat="+dojo.byId("category").value});
+                            store.fetch();
+                            /*store.comparatorMap = {};
+    store.comparatorMap["name"] = function (a, b) {
+    return a.localeCompare(b);
+    }*/
+                            result.setStore(store);
+                        </script>
+                    </button>
+                </td>
+            </tr>
+        </table>
+
+        <table id="result" jsId="result" data-dojo-type="dojox/grid/EnhancedGrid" >
+            <script type="dojo/method" event="onClick">
+            var sel = result.selection.getSelected();
+            var row = result.selection.getSelected()[0];
+               var email = result.store.getValue(row,"description");
+            alert( email );
+      </script>
+            <thead>
+                <tr>
+                    <th field="title" width="600px">Title</th>
+                    <th field="date" width="200px">Date</th>
+                    <th field="link" width="200px" formatter="lessThan">Link</th>
+                </tr>
+            </thead>
+        </table>
+
+    </body>
+</html>

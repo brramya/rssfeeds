@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/3.0/modelMap"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://cayenne.apache.org/schema/3.0/modelMap http://cayenne.apache.org/schema/3.0/modelMap.xsd"
+  project-version="3.0.0.1">
+	<property name="defaultPackage" value="edu.stratford.rbandlar8760.rssfeeds.db"/>
+	<property name="quoteSqlIdentifiers" value="true"/>
+	<db-entity name="category" catalog="rss_feed">
+		<db-attribute name="category_name" type="VARCHAR" length="50"/>
+		<db-attribute name="s_no" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+	</db-entity>
+	<db-entity name="company" catalog="rss_feed">
+		<db-attribute name="company_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="company_name" type="VARCHAR" length="50"/>
+	</db-entity>
+	<db-entity name="information" catalog="rss_feed">
+		<db-attribute name="inf_pk" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="information" type="VARCHAR" length="50"/>
+	</db-entity>
+	<db-entity name="mapping_details" catalog="rss_feed">
+		<db-attribute name="category_sno" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="map_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="web_sno" type="INTEGER" isMandatory="true" length="10"/>
+	</db-entity>
+	<db-entity name="product_details" catalog="rss_feed">
+		<db-attribute name="date" type="DATE"/>
+		<db-attribute name="description" type="VARCHAR" length="10000"/>
+		<db-attribute name="link" type="VARCHAR" length="1000"/>
+		<db-attribute name="map_id" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="product_details_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="title" type="VARCHAR" length="1000"/>
+	</db-entity>
+	<db-entity name="tag_details" catalog="rss_feed">
+		<db-attribute name="inf_id" type="INTEGER" length="10"/>
+		<db-attribute name="tag_id" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="tagname" type="VARCHAR" length="30"/>
+		<db-attribute name="web_id" type="INTEGER" length="10"/>
+	</db-entity>
+	<db-entity name="website" catalog="rss_feed">
+		<db-attribute name="web_pk" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="website_name" type="VARCHAR" length="50"/>
+	</db-entity>
+	<db-entity name="website_url" catalog="rss_feed">
+		<db-attribute name="url" type="VARCHAR" length="100"/>
+		<db-attribute name="web_pk" type="INTEGER" length="10"/>
+		<db-attribute name="website_url_pk" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+	</db-entity>
+	<obj-entity name="Category" className="edu.stratford.rbandlar8760.rssfeeds.db.Category" dbEntityName="category">
+		<obj-attribute name="categoryName" type="java.lang.String" db-attribute-path="category_name"/>
+	</obj-entity>
+	<obj-entity name="Company" className="edu.stratford.rbandlar8760.rssfeeds.db.Company" dbEntityName="company">
+		<obj-attribute name="companyName" type="java.lang.String" db-attribute-path="company_name"/>
+	</obj-entity>
+	<obj-entity name="Information" className="edu.stratford.rbandlar8760.rssfeeds.db.Information" dbEntityName="information">
+		<obj-attribute name="information" type="java.lang.String" db-attribute-path="information"/>
+	</obj-entity>
+	<obj-entity name="MappingDetails" className="edu.stratford.rbandlar8760.rssfeeds.db.MappingDetails" dbEntityName="mapping_details">
+	</obj-entity>
+	<obj-entity name="ProductDetails" className="edu.stratford.rbandlar8760.rssfeeds.db.ProductDetails" dbEntityName="product_details">
+		<obj-attribute name="date" type="java.util.Date" db-attribute-path="date"/>
+		<obj-attribute name="description" type="java.lang.String" db-attribute-path="description"/>
+		<obj-attribute name="link" type="java.lang.String" db-attribute-path="link"/>
+		<obj-attribute name="title" type="java.lang.String" db-attribute-path="title"/>
+	</obj-entity>
+	<obj-entity name="TagDetails" className="edu.stratford.rbandlar8760.rssfeeds.db.TagDetails" dbEntityName="tag_details">
+		<obj-attribute name="tagname" type="java.lang.String" db-attribute-path="tagname"/>
+	</obj-entity>
+	<obj-entity name="Website" className="edu.stratford.rbandlar8760.rssfeeds.db.Website" dbEntityName="website">
+		<obj-attribute name="websiteName" type="java.lang.String" db-attribute-path="website_name"/>
+	</obj-entity>
+	<obj-entity name="WebsiteUrl" className="edu.stratford.rbandlar8760.rssfeeds.db.WebsiteUrl" dbEntityName="website_url">
+		<obj-attribute name="url" type="java.lang.String" db-attribute-path="url"/>
+	</obj-entity>
+	<db-relationship name="mappingDetailsArray" source="category" target="mapping_details" toMany="true">
+		<db-attribute-pair source="s_no" target="category_sno"/>
+	</db-relationship>
+	<db-relationship name="tagDetailsArray" source="information" target="tag_details" toMany="true">
+		<db-attribute-pair source="inf_pk" target="inf_id"/>
+	</db-relationship>
+	<db-relationship name="tagDetailsArray1" source="information" target="tag_details" toMany="true">
+		<db-attribute-pair source="inf_pk" target="inf_id"/>
+	</db-relationship>
+	<db-relationship name="tagDetailsArray2" source="information" target="tag_details" toMany="true">
+		<db-attribute-pair source="inf_pk" target="inf_id"/>
+	</db-relationship>
+	<db-relationship name="productDetailsArray" source="mapping_details" target="product_details" toMany="true">
+		<db-attribute-pair source="map_id" target="map_id"/>
+	</db-relationship>
+	<db-relationship name="toCategory" source="mapping_details" target="category" toMany="false">
+		<db-attribute-pair source="category_sno" target="s_no"/>
+	</db-relationship>
+	<db-relationship name="toWebsite" source="mapping_details" target="website" toMany="false">
+		<db-attribute-pair source="web_sno" target="web_pk"/>
+	</db-relationship>
+	<db-relationship name="toMappingDetails" source="product_details" target="mapping_details" toMany="false">
+		<db-attribute-pair source="map_id" target="map_id"/>
+	</db-relationship>
+	<db-relationship name="toInformation" source="tag_details" target="information" toMany="false">
+		<db-attribute-pair source="inf_id" target="inf_pk"/>
+	</db-relationship>
+	<db-relationship name="toInformation1" source="tag_details" target="information" toMany="false">
+		<db-attribute-pair source="inf_id" target="inf_pk"/>
+	</db-relationship>
+	<db-relationship name="toInformation2" source="tag_details" target="information" toMany="false">
+		<db-attribute-pair source="inf_id" target="inf_pk"/>
+	</db-relationship>
+	<db-relationship name="toWebsite" source="tag_details" target="website" toMany="false">
+		<db-attribute-pair source="web_id" target="web_pk"/>
+	</db-relationship>
+	<db-relationship name="toWebsite1" source="tag_details" target="website" toMany="false">
+		<db-attribute-pair source="web_id" target="web_pk"/>
+	</db-relationship>
+	<db-relationship name="toWebsite2" source="tag_details" target="website" toMany="false">
+		<db-attribute-pair source="web_id" target="web_pk"/>
+	</db-relationship>
+	<db-relationship name="mappingDetailsArray" source="website" target="mapping_details" toMany="true">
+		<db-attribute-pair source="web_pk" target="web_sno"/>
+	</db-relationship>
+	<db-relationship name="tagDetailsArray" source="website" target="tag_details" toMany="true">
+		<db-attribute-pair source="web_pk" target="web_id"/>
+	</db-relationship>
+	<db-relationship name="tagDetailsArray1" source="website" target="tag_details" toMany="true">
+		<db-attribute-pair source="web_pk" target="web_id"/>
+	</db-relationship>
+	<db-relationship name="tagDetailsArray2" source="website" target="tag_details" toMany="true">
+		<db-attribute-pair source="web_pk" target="web_id"/>
+	</db-relationship>
+	<db-relationship name="websiteUrlArray" source="website" target="website_url" toMany="true">
+		<db-attribute-pair source="web_pk" target="web_pk"/>
+	</db-relationship>
+	<db-relationship name="websiteUrlArray1" source="website" target="website_url" toMany="true">
+		<db-attribute-pair source="web_pk" target="web_pk"/>
+	</db-relationship>
+	<db-relationship name="websiteUrlArray2" source="website" target="website_url" toMany="true">
+		<db-attribute-pair source="web_pk" target="web_pk"/>
+	</db-relationship>
+	<db-relationship name="toWebsite" source="website_url" target="website" toMany="false">
+		<db-attribute-pair source="web_pk" target="web_pk"/>
+	</db-relationship>
+	<db-relationship name="toWebsite1" source="website_url" target="website" toMany="false">
+		<db-attribute-pair source="web_pk" target="web_pk"/>
+	</db-relationship>
+	<db-relationship name="toWebsite2" source="website_url" target="website" toMany="false">
+		<db-attribute-pair source="web_pk" target="web_pk"/>
+	</db-relationship>
+	<obj-relationship name="mappingDetailsArray" source="Category" target="MappingDetails" deleteRule="Deny" db-relationship-path="mappingDetailsArray"/>
+	<obj-relationship name="tagDetailsArray" source="Information" target="TagDetails" deleteRule="Deny" db-relationship-path="tagDetailsArray"/>
+	<obj-relationship name="productDetailsArray" source="MappingDetails" target="ProductDetails" deleteRule="Deny" db-relationship-path="productDetailsArray"/>
+	<obj-relationship name="toCategory" source="MappingDetails" target="Category" deleteRule="Nullify" db-relationship-path="toCategory"/>
+	<obj-relationship name="toWebsite" source="MappingDetails" target="Website" deleteRule="Nullify" db-relationship-path="toWebsite"/>
+	<obj-relationship name="toMappingDetails" source="ProductDetails" target="MappingDetails" deleteRule="Nullify" db-relationship-path="toMappingDetails"/>
+	<obj-relationship name="toInformation" source="TagDetails" target="Information" deleteRule="Nullify" db-relationship-path="toInformation"/>
+	<obj-relationship name="toWebsite" source="TagDetails" target="Website" deleteRule="Nullify" db-relationship-path="toWebsite"/>
+	<obj-relationship name="mappingDetailsArray" source="Website" target="MappingDetails" deleteRule="Deny" db-relationship-path="mappingDetailsArray"/>
+	<obj-relationship name="tagDetailsArray" source="Website" target="TagDetails" deleteRule="Deny" db-relationship-path="tagDetailsArray"/>
+	<obj-relationship name="websiteUrlArray" source="Website" target="WebsiteUrl" deleteRule="Deny" db-relationship-path="websiteUrlArray"/>
+	<obj-relationship name="toWebsite" source="WebsiteUrl" target="Website" deleteRule="Nullify" db-relationship-path="toWebsite"/>
+</data-map>
